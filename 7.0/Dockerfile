@@ -20,6 +20,10 @@ RUN apk --no-cache add \
         subversion \
         tini
 
+ENV PATH "/composer/vendor/bin:$PATH"
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME /composer
+
 RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
