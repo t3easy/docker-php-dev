@@ -1,3 +1,5 @@
+FROM composer AS composer
+
 FROM t3easy/php:5.6
 
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
@@ -20,12 +22,8 @@ RUN apk --no-cache add \
         subversion \
         tini
 
-ENV PATH "/composer/vendor/bin:$PATH"
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_HOME /composer
+ENV COMPOSER_HOME /tmp
+ENV PATH "/tmp/vendor/bin:$PATH"
 
-RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
-    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-    && php composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer \
-    && php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+COPY --from=composer /usr/bin/composer /usr/bin/composer
