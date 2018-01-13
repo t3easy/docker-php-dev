@@ -11,7 +11,7 @@ RUN touch /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.max_nesting_level=400" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-ENV XDEBUG_CONFIG="idekey=PHPSTORM remote_host=docker.for.mac.localhost"
+ENV XDEBUG_CONFIG="idekey=PHPSTORM remote_host=docker.for.mac.host.internal"
 
 RUN apk --no-cache add \
         bash \
