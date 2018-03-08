@@ -1,4 +1,4 @@
-FROM composer AS composer
+FROM composer:1 AS composer
 
 FROM t3easy/php:7.1
 
