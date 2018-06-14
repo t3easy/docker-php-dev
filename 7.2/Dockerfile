@@ -6,7 +6,7 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS && \
     pecl install xdebug && \
     docker-php-ext-enable xdebug && \
     apk del .phpize-deps && \
-    rm -f /tmp/pear
+    rm -rf /tmp/pear
 
 RUN touch /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
     echo "xdebug.max_nesting_level=400" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
