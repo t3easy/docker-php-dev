@@ -2,15 +2,14 @@ FROM composer:1 AS composer
 
 FROM t3easy/php:7.3
 
-RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS && \
-    pecl install xdebug-2.7.0beta1 && \
-    docker-php-ext-enable xdebug && \
-    apk del .phpize-deps && \
-    rm -rf /tmp/pear
+RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
+ && pecl install xdebug-2.7.0RC2 \
+ && docker-php-ext-enable xdebug \
+ && apk del .phpize-deps \
+ && rm -rf /tmp/pear
 
-RUN touch /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.max_nesting_level=400" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.max_nesting_level=400" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+ && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 ENV XDEBUG_CONFIG="idekey=PHPSTORM remote_host=host.docker.internal"
 
