@@ -3,7 +3,7 @@ FROM composer:1 AS composer
 FROM t3easy/php:7.0
 
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
- && pecl install xdebug-2.6.1 \
+ && pecl install xdebug-2.7.1 \
  && docker-php-ext-enable xdebug \
  && apk del .phpize-deps \
  && rm -rf /tmp/pear
