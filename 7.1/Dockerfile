@@ -11,18 +11,9 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
 RUN echo "xdebug.max_nesting_level=400" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
  && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-ENV XDEBUG_CONFIG="idekey=PHPSTORM remote_host=host.docker.internal"
+ENV XDEBUG_CONFIG="remote_host=host.docker.internal"
 
-RUN apk --no-cache add \
-        bash \
-        curl \
-        git \
-        mercurial \
-        openssh \
-        openssl \
-        parallel \
-        subversion \
-        tini
+RUN apk add --no-cache --virtual .composer-rundeps git subversion openssh-client mercurial tini bash patch make zip unzip coreutils
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
