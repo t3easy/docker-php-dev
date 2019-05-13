@@ -20,6 +20,8 @@ ENV XDEBUG_CONFIG="idekey=PHPSTORM remote_host=host.docker.internal"
 
 RUN apk add --no-cache --virtual .composer-rundeps git subversion openssh-client mercurial tini bash patch make zip unzip coreutils
 
+RUN apk add --no-cache --virtual .dev-tools mariadb-client
+
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
 ENV PATH "/tmp/vendor/bin:$PATH"
