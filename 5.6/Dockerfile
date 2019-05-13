@@ -4,6 +4,7 @@ ARG XDEBUG_VERSION=2.5.5
 FROM composer:1 AS composer
 
 FROM t3easy/php:${RUNTIME_PHP_VERSION} AS runtime
+ARG XDEBUG_VERSION
 
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
  && pecl install xdebug-${XDEBUG_VERSION} \
